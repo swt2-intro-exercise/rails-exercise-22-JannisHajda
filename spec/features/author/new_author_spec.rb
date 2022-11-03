@@ -20,4 +20,13 @@ describe "New author page", type: :feature do
     fill_in 'author[homepage]', with: 'http://wikipedia.org/Alan_Turing'
     find('input[type="submit"]').click
   end
+
+  it "should show validation errors if the form is submitted without a last name" do
+    visit new_author_path
+    fill_in 'author[first_name]', with: 'Alan'
+    fill_in 'author[homepage]', with: 'http://wikipedia.org/Alan_Turing'
+    find('input[type="submit"]').click
+    expect(page).to have_text("Last name can't be blank")
+    expect(page).to have_text("Last name is too short (minimum is 1 character)")
+  end
 end
