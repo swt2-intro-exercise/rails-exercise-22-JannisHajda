@@ -21,4 +21,11 @@ describe "Author model", type: :model do
         author.update(homepage: "https://de.wikipedia.org/wiki/Alan_Turing")
         expect(author.homepage).to eq("https://de.wikipedia.org/wiki/Alan_Turing")
     end
+
+    it "should delete" do
+        count = Author.count
+        author = Author.new(first_name: 'Alan', last_name: 'Turing', homepage: 'http://wikipedia.org/Alan_Turing')
+        author.destroy
+        expect(Author.count).to eq(count)
+    end
 end
