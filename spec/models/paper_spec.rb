@@ -12,4 +12,19 @@ describe "Paper model" do
     paper = Paper.new(title: "", venue: "Mind 49: 433-460", year: 1950)
     expect(paper).to_not be_valid
   end
+
+  it "should not validate without a venue" do
+    paper = Paper.new(title: "COMPUTING MACHINERY AND INTELLIGENCE", venue: "", year: 1950)
+    expect(paper).to_not be_valid
+  end
+
+  it "should not validate without a year" do
+    paper = Paper.new(title: "COMPUTING MACHINERY AND INTELLIGENCE", venue: "Mind 49: 433-460", year: nil)
+    expect(paper).to_not be_valid
+  end
+
+  it "should not validate with a non-integer year" do
+    paper = Paper.new(title: "COMPUTING MACHINERY AND INTELLIGENCE", venue: "Mind 49: 433-460", year: "nineteen fifty")
+    expect(paper).to_not be_valid
+  end
 end
