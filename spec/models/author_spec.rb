@@ -15,4 +15,10 @@ describe "Author model", type: :model do
         author = Author.new(first_name: 'Alan', last_name: '', homepage: 'http://wikipedia.org/Alan_Turing')
         expect(author).to_not be_valid
     end
+
+    it "should update" do
+        author = Author.new(first_name: 'Alan', last_name: 'Turing', homepage: 'http://wikipedia.org/Alan_Turing')
+        author.update(homepage: "https://de.wikipedia.org/wiki/Alan_Turing")
+        expect(author.homepage).to eq("https://de.wikipedia.org/wiki/Alan_Turing")
+    end
 end
