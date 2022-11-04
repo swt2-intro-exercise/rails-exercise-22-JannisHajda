@@ -33,4 +33,34 @@ describe "Paper index page", type: :feature do
         visit papers_path
         expect(page).to have_link('Delete', href: paper_path(@paper))
     end
+
+    it "should filter paper page" do
+        @paper = FactoryBot.create :paper
+
+        @paper2 = FactoryBot.create :paper
+        @paper2.title = "SampleTitle"
+        @paper2.venue = "SampleVenue"
+        @paper2.year = 1952
+        @paper2.save
+
+        visit papers_path(year: 1950)
+
+        expect(page).to have_text(@paper.title)
+        expect(page).to have_text(@paper.venue)
+        expect(page).to have_text(@paper.year)
+
+        expect(page).not_to have_text(@paper2.title)
+        expect(page).not_to have_text(@paper2.venue)
+        expect(page).not_to have_text(@paper2.year)  
+
+        visit papers_path(year: 1952)
+
+        expect(page).not_to have_text(@paper.title)
+        expect(page).not_to have_text(@paper.venue)
+        expect(page).not_to have_text(@paper.year)
+
+        expect(page).to have_text(@paper2.title)
+        expect(page).to have_text(@paper2.venue)
+        expect(page).to have_text(@paper2.year)
+    end 
 end

@@ -3,7 +3,14 @@ class PapersController < ApplicationController
 
   # GET /papers
   def index
-    @papers = Paper.all
+    if !request.query_parameters.empty?
+      case request.query_parameters.keys[0]
+      when "year"
+        @papers = Paper.released_in(request.query_parameters.values[0])
+      end
+    else
+      @papers = Paper.all
+    end
   end
 
   # GET /papers/1
