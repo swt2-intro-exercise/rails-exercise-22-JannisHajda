@@ -28,12 +28,18 @@
         <br>
         <%= form.number_field :year %>
     </div>
-    
-    <%= form.select 'author_ids', 
-      options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
-      {}, multiple: true, size: 10 %>
+    <div class="field">
+        Authors
+        <br>
+        <%= form.select 'author_ids', 
+          options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
+          {}, multiple: true, size: 10 %>
+    </div> 
 
     <div class="actions">
         <%= form.submit %>
     </div>
+
+    <%= link_to 'Delete', paper_path(@paper), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %> |
+    <%= link_to "Back to papers", papers_path %> 
 <% end %>

@@ -25,4 +25,15 @@ describe "New paper page", type: :feature do
         find('input[type="submit"]').click
         expect(page).to have_text("Title can't be blank")
     end
+
+    it "should have a select box for the paper's authors" do
+        visit new_paper_path
+        expect(page).to have_select('paper[author_ids][]')
+    end
+
+    it "should show all authors in the select box" do
+        @alan = FactoryBot.create :author
+        visit new_paper_path
+        expect(page).to have_select('paper[author_ids][]', with_options: [@alan.name])
+    end
 end

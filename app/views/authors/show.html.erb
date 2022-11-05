@@ -1,4 +1,17 @@
-<h2>Name:</h2>
-<p><%= @author.name %></p>
-<h2>Homepage:</h2>
-<p><%= @author.homepage %></p>
+<p style="color: green"><%= notice %></p>
+<b>Name:</b>
+<%= @author.name %> 
+<br><br>
+<b>Homepage:</b>
+<%= @author.homepage %>
+<br><br>
+<b>Paper:</b>
+<% @author.papers.each do |paper| %>
+  <%= link_to paper.title, paper_path(paper) %>
+<% end %>
+<br><br>
+<div>
+  <%= link_to "Edit", edit_author_path(@author) %> |
+  <%= link_to 'Delete', author_path(@author), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %> |
+  <%= link_to "Back to authors", authors_path %> 
+</div>

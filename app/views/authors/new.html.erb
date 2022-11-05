@@ -1,4 +1,4 @@
-<h1>New Author</h1>
+<h1>New author</h1>
 
 <% if @author.errors.any? %>
     <div id="error_explanation">
@@ -28,6 +28,12 @@
         <br>
         <%= form.text_field :homepage %>
     </div>
+    <div class="field">
+        Paper
+        <br>
+        <%= form.select 'paper_ids', options_from_collection_for_select(Paper.all, :id, :title, @author.paper_ids), {}, multiple: true, size: 10 %>
+    </div>
+
     <div class="actions">
         <%= form.submit %>
     </div>

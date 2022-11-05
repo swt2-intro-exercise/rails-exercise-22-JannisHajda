@@ -20,4 +20,17 @@ describe "Author edit page", type: :feature do
         @alan.reload
         expect(@alan.first_name).to eq('Alan Mathison')
     end
+
+    it "should have a select box for the author's papers" do
+        @alan = FactoryBot.create :author
+        visit edit_author_path(@alan)
+        expect(page).to have_select('author[paper_ids][]')
+    end
+
+    it "should show all papers in the select box" do
+        @paper = FactoryBot.create :paper
+        @alan = FactoryBot.create :author
+        visit edit_author_path(@alan)
+        expect(page).to have_select('author[paper_ids][]', with_options: [@paper.title])
+    end
 end

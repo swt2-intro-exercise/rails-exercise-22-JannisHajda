@@ -29,4 +29,15 @@ describe "New author page", type: :feature do
     expect(page).to have_text("Last name can't be blank")
     expect(page).to have_text("Last name is too short (minimum is 1 character)")
   end
+
+  it "should have a select box for the author's papers" do
+    visit new_author_path
+    expect(page).to have_select('author[paper_ids][]')
+  end
+
+  it "should show all papers in the select box" do
+    @paper = FactoryBot.create :paper
+    visit new_author_path
+    expect(page).to have_select('author[paper_ids][]', with_options: [@paper.title])
+  end
 end

@@ -28,7 +28,17 @@
         <br>
         <%= form.text_field :homepage %>
     </div>
+    <div class="field">
+        Papers
+        <br>
+        <%= form.select 'paper_ids', 
+          options_from_collection_for_select(Paper.all, :id, :title, @author.paper_ids),
+          {}, multiple: true, size: 10 %>
+    </div>
+
     <div class="actions">
         <%= form.submit %>
     </div>
+    <%= link_to 'Delete', author_path(@author), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %> |
+    <%= link_to "Back to authors", authors_path %> 
 <% end %>
